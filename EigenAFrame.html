@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>Project Gallerij</title>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
   </head>
   <body>
     <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
@@ -11,18 +12,19 @@
       <a-assets>
         <img id="project1" src="assets/img/TwinStickLogo.png">
         <img id="project2" src="assets/img/CastleOfMischief.png">
-        <img id="project3" src="assets/img/GhostAR_Kleiner.jpg">
+        <img id="project3" src="assets/img/GhostAR.jpg">
       </a-assets>
 
-      <!-- Camera en cursor voor muisklikken -->
-      <a-entity camera look-controls position="0 1.6 0">
-        <a-cursor></a-cursor>
+      <!-- Camera en cursor -->
+      <a-entity id="cameraRig" position="0 1.6 0" movement-controls>
+        <a-entity camera look-controls wasd-controls>
+          <a-cursor></a-cursor>
+        </a-entity>
       </a-entity>
+      
 
       <!-- Achtergrond -->
       <a-sky color="#ECECEC"></a-sky>
-
-
     </a-scene>
 
     <script>
@@ -30,41 +32,58 @@
         {
           img: '#project1',
           link: 'TwinStick.html',
+          title: 'Twin Stick Shooter',
+          description: 'Twin Stick Shooter is een spannend spel waar je vijanden moet uitschakelen met twee input sticks.',
           position: '-2 1.5 -4'
         },
         {
           img: '#project2',
           link: 'CastleOfMischief.html',
+          title: 'Rogue-like Dungeon',
+          description: 'Rogue-like Dungeon is een uitdagend spel waar je door een kasteel vol vijanden en moet survivelen per ronde.',
           position: '0 1.5 -4'
         },
         {
           img: '#project3',
           link: 'VR.html',
+          title: 'Ghost AR',
+          description: 'Arcade game met een VR bril, waar je door de wereld loopt en spoken moet uitschakelen.',
           position: '2 1.5 -4'
         }
       ];
 
+      const scene = document.querySelector('a-scene');
+
       projects.forEach(p => {
+        // Project vlak
         const plane = document.createElement('a-plane');
         plane.setAttribute('material', `src: ${p.img}`);
         plane.setAttribute('width', '1.5');
         plane.setAttribute('height', '2.5');
         plane.setAttribute('position', p.position);
         plane.setAttribute('class', 'clickable');
-
-        // Voeg hover effect toe
         plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
         plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
+        plane.addEventListener('click', () => window.location.href = p.link);
+        scene.appendChild(plane);
 
-        // Klik-event: navigeer naar andere pagina
-        plane.addEventListener('click', () => {
-          window.location.href = p.link;
-        });
+        // Titel erboven
+        const title = document.createElement('a-text');
+        title.setAttribute('value', p.title);
+        title.setAttribute('align', 'center');
+        title.setAttribute('width', '2');
+        title.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) + 1.6} ${p.position.split(' ')[2]}`);
+        scene.appendChild(title);
 
-        document.querySelector('a-scene').appendChild(plane);
+        // Beschrijving eronder
+        const desc = document.createElement('a-text');
+        desc.setAttribute('value', p.description);
+        desc.setAttribute('align', 'center');
+        desc.setAttribute('width', '2');
+        desc.setAttribute('color', '#444');
+        desc.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) - 1.6} ${p.position.split(' ')[2]}`);
+        scene.appendChild(desc);
       });
     </script>
-
-    <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
   </body>
 </html>
