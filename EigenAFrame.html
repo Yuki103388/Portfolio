@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Mijn A-Frame Scène</title>
+    <meta charset="utf-8" />
+    <title>Afbeelding laden met JavaScript</title>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   </head>
   <body>
     <a-scene>
-      <!-- Preload assets -->
-      <a-assets>
-        <img id="CastleOfMischief" src="assets/img/CastleOfMischief.png" />
-      </a-assets>
+      <!-- Assets container (leeg, wordt gevuld met JS) -->
+      <a-assets id="assetContainer"></a-assets>
 
-      <!-- Gebruik de afbeelding op een staand vlak -->
-      <a-plane position="0 1 -3" rotation="0 0 0" width="2" height="4" material="src: #CastleOfMischief"></a-plane>
+      <!-- Vlak waar de afbeelding op komt (ook via JS) -->
+      <a-entity id="imagePlane"></a-entity>
 
-      <!-- Voeg een achtergrond toe -->
+      <!-- Achtergrond -->
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
+
+    <script>
+      // Maak een afbeelding aan in <a-assets>
+      const img = document.createElement('img');
+      img.setAttribute('id', 'CastleOfMischief');
+      img.setAttribute('src', 'assets/img/CastleOfMischief.png'); // zorg dat dit pad klopt
+
+      document.getElementById('assetContainer').appendChild(img);
+
+      // Maak een vlak en gebruik de afbeelding
+      const plane = document.createElement('a-plane');
+      plane.setAttribute('position', '0 1 -3');
+      plane.setAttribute('width', '2');
+      plane.setAttribute('height', '4');
+      plane.setAttribute('material', 'src: #CastleOfMischief');
+
+      document.getElementById('imagePlane').appendChild(plane);
+    </script>
   </body>
 </html>
