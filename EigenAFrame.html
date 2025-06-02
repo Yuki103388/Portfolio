@@ -2,37 +2,69 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Afbeelding laden met JavaScript</title>
+    <title>Project Gallerij</title>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   </head>
   <body>
-    <a-scene>
-      <!-- Assets container (leeg, wordt gevuld met JS) -->
-      <a-assets id="assetContainer"></a-assets>
+    <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
+      <!-- Assets -->
+      <a-assets>
+        <img id="project1" src="assets/img/TwinStickLogo.png">
+        <img id="project2" src="assets/img/CastleOfMischief.png">
+        <img id="project3" src="assets/img/GhostAR_Kleiner.jpg">
+      </a-assets>
 
-      <!-- Vlak waar de afbeelding op komt (ook via JS) -->
-      <a-entity id="imagePlane"></a-entity>
+      <!-- Camera en cursor voor muisklikken -->
+      <a-entity camera look-controls position="0 1.6 0">
+        <a-cursor></a-cursor>
+      </a-entity>
 
       <!-- Achtergrond -->
       <a-sky color="#ECECEC"></a-sky>
+
+
     </a-scene>
 
     <script>
-      // Maak een afbeelding aan in <a-assets>
-      const img = document.createElement('img');
-      img.setAttribute('id', 'CastleOfMischief');
-      img.setAttribute('src', 'assets/img/CastleOfMischief.png'); // zorg dat dit pad klopt
+      const projects = [
+        {
+          img: '#project1',
+          link: 'TwinStick.html',
+          position: '-2 1.5 -4'
+        },
+        {
+          img: '#project2',
+          link: 'CastleOfMischief.html',
+          position: '0 1.5 -4'
+        },
+        {
+          img: '#project3',
+          link: 'VR.html',
+          position: '2 1.5 -4'
+        }
+      ];
 
-      document.getElementById('assetContainer').appendChild(img);
+      projects.forEach(p => {
+        const plane = document.createElement('a-plane');
+        plane.setAttribute('material', `src: ${p.img}`);
+        plane.setAttribute('width', '1.5');
+        plane.setAttribute('height', '2.5');
+        plane.setAttribute('position', p.position);
+        plane.setAttribute('class', 'clickable');
 
-      // Maak een vlak en gebruik de afbeelding
-      const plane = document.createElement('a-plane');
-      plane.setAttribute('position', '0 1 -3');
-      plane.setAttribute('width', '2');
-      plane.setAttribute('height', '4');
-      plane.setAttribute('material', 'src: #CastleOfMischief');
+        // Voeg hover effect toe
+        plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
+        plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
 
-      document.getElementById('imagePlane').appendChild(plane);
+        // Klik-event: navigeer naar andere pagina
+        plane.addEventListener('click', () => {
+          window.location.href = p.link;
+        });
+
+        document.querySelector('a-scene').appendChild(plane);
+      });
     </script>
+
+    <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
   </body>
 </html>
