@@ -54,7 +54,7 @@
 
       const scene = document.querySelector('a-scene');
 
-      projects.forEach((p, index) => {
+     projects.forEach((p, index) => {
   const plane = document.createElement('a-plane');
 
   // Formaat per paneel instellen
@@ -67,7 +67,8 @@
     height = 2.5;
   }
 
-  plane.setAttribute('material', `src: ${p.img}; shader: flat; transparent: true`);
+  // Project paneel
+  plane.setAttribute('material', `src: ${p.img}; shader: flat; transparent: true; side: double`);
   plane.setAttribute('width', width);
   plane.setAttribute('height', height);
   plane.setAttribute('position', p.position);
@@ -82,6 +83,7 @@
   title.setAttribute('value', p.title);
   title.setAttribute('align', 'center');
   title.setAttribute('width', '3');
+  title.setAttribute('color', 'black');
   title.setAttribute(
     'position',
     `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) + height / 1.2} ${p.position.split(' ')[2]}`
@@ -93,13 +95,14 @@
   desc.setAttribute('value', p.description);
   desc.setAttribute('align', 'center');
   desc.setAttribute('width', '3.5');
-  desc.setAttribute('color', '#444');
+  desc.setAttribute('color', 'black');
   desc.setAttribute(
     'position',
     `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) - height / 1.2} ${p.position.split(' ')[2]}`
   );
   scene.appendChild(desc);
 });
+
       // Extra gif panel
       const gifPanel = document.createElement('a-plane');
       gifPanel.setAttribute('material', 'src: #gif1; shader: flat; transparent: true');
