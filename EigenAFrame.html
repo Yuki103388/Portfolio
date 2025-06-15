@@ -9,21 +9,19 @@
   <body>
     <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
       <!-- Assets -->
-  <a-assets>
-    <img id="project1" src="assets/img/TwinStickLogo.png">
-    <img id="project2" src="assets/img/CastleOfMischief.png">
-    <img id="project3" src="assets/img/GhostAR.jpg">
-    <img id="gif1" src="assets/img/armor pick up.gif" />
-  </a-assets>
+      <a-assets>
+        <img id="project1" src="assets/img/TwinStickLogo.png">
+        <img id="project2" src="assets/img/CastleOfMischief.png">
+        <img id="project3" src="assets/img/GhostAR.jpg">
+        <img id="gif1" src="assets/img/armor pick up.gif" />
+      </a-assets>
 
-  <!-- Camera en cursor -->
-  <a-entity id="cameraRig" position="0 1.6 0" movement-controls>
-    <a-entity camera look-controls wasd-controls>
-      <a-cursor></a-cursor>
-    </a-entity>
-  </a-entity>
-
-      
+      <!-- Camera en cursor -->
+      <a-entity id="cameraRig" position="0 1.6 0" movement-controls>
+        <a-entity camera look-controls wasd-controls>
+          <a-cursor></a-cursor>
+        </a-entity>
+      </a-entity>
 
       <!-- Achtergrond -->
       <a-sky color="#ECECEC"></a-sky>
@@ -52,55 +50,55 @@
           description: 'Arcade game met een VR bril, waar je door de wereld loopt en spoken moet uitschakelen.',
           position: '2 1.5 -4'
         }
-        
       ];
 
       const scene = document.querySelector('a-scene');
 
-projects.forEach(p => {
-  // Projectvlak
-  const plane = document.createElement('a-plane');
-  plane.setAttribute('material', `src: ${p.img}`);
-  plane.setAttribute('width', '1.5');
-  plane.setAttribute('height', '2.5');
-  plane.setAttribute('position', p.position);
-  plane.setAttribute('class', 'clickable');
-  plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
-  plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
-  plane.addEventListener('click', () => window.location.href = p.link);
-  scene.appendChild(plane);
+      projects.forEach(p => {
+        // Projectvlak
+        const plane = document.createElement('a-plane');
+        plane.setAttribute('material', `src: ${p.img}`);
+        plane.setAttribute('width', '1.5');
+        plane.setAttribute('height', '2.5');
+        plane.setAttribute('position', p.position);
+        plane.setAttribute('class', 'clickable');
+        plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
+        plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
+        plane.addEventListener('click', () => window.location.href = p.link);
+        scene.appendChild(plane);
 
-  // Titel
-  const title = document.createElement('a-text');
-  title.setAttribute('value', p.title);
-  title.setAttribute('align', 'center');
-  title.setAttribute('width', '2');
-  title.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) + 1.6} ${p.position.split(' ')[2]}`);
-  scene.appendChild(title);
+        // Titel erboven
+        const title = document.createElement('a-text');
+        title.setAttribute('value', p.title);
+        title.setAttribute('align', 'center');
+        title.setAttribute('width', '2');
+        title.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) + 1.6} ${p.position.split(' ')[2]}`);
+        scene.appendChild(title);
 
-  // Beschrijving
-  const desc = document.createElement('a-text');
-  desc.setAttribute('value', p.description);
-  desc.setAttribute('align', 'center');
-  desc.setAttribute('width', '2.5');
-  desc.setAttribute('color', '#444');
-  desc.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) - 1.6} ${p.position.split(' ')[2]}`);
-  scene.appendChild(desc);
-});
+        // Beschrijving eronder
+        const desc = document.createElement('a-text');
+        desc.setAttribute('value', p.description);
+        desc.setAttribute('align', 'center');
+        desc.setAttribute('width', '2.5');
+        desc.setAttribute('color', '#444');
+        desc.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) - 1.6} ${p.position.split(' ')[2]}`);
+        scene.appendChild(desc);
+      });
 
-// Extra GIF
-const gifPanel = document.createElement('a-plane');
-gifPanel.setAttribute('material', 'src: #gif1');
-gifPanel.setAttribute('width', '2');
-gifPanel.setAttribute('height', '1.5');
-gifPanel.setAttribute('position', '4 2 -4');
-scene.appendChild(gifPanel);
+      // Extra gif panel
+      const gifPanel = document.createElement('a-plane');
+      gifPanel.setAttribute('material', 'src: #gif1');
+      gifPanel.setAttribute('width', '2');
+      gifPanel.setAttribute('height', '1.5');
+      gifPanel.setAttribute('position', '5 2 -4');
+      scene.appendChild(gifPanel);
 
-const gifTitle = document.createElement('a-text');
-gifTitle.setAttribute('value', 'Gameplay Voorbeeld');
-gifTitle.setAttribute('align', 'center');
-gifTitle.setAttribute('width', '3');
-gifTitle.setAttribute('position', '4 3.2 -4');
-scene.appendChild(gifTitle);
-
-
+      const gifTitle = document.createElement('a-text');
+      gifTitle.setAttribute('value', 'Gameplay Voorbeeld');
+      gifTitle.setAttribute('align', 'center');
+      gifTitle.setAttribute('width', '3');
+      gifTitle.setAttribute('position', '5 3.2 -4');
+      scene.appendChild(gifTitle);
+    </script>
+  </body>
+</html>
