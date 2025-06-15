@@ -55,26 +55,24 @@
       const scene = document.querySelector('a-scene');
 
       projects.forEach(p => {
-        const [x, y, z] = p.position.split(' ').map(Number);
-
-        // Projectvlak als afbeelding (voorkomt stretching)
-        const image = document.createElement('a-image');
-        image.setAttribute('src', p.img);
-        image.setAttribute('width', '1.5');
-        image.setAttribute('position', `${x} ${y} ${z}`);
-        image.setAttribute('class', 'clickable');
-        image.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
-        image.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
-        image.addEventListener('click', () => window.location.href = p.link);
-        scene.appendChild(image);
+        // Projectvlak
+        const plane = document.createElement('a-plane');
+        plane.setAttribute('material', `src: ${p.img}; shader: flat; transparent: true`);
+        plane.setAttribute('width', '2.5');   // Breder dan hoog
+        plane.setAttribute('height', '1.5');  // Lager dan breed
+        plane.setAttribute('position', p.position);
+        plane.setAttribute('class', 'clickable');
+        plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
+        plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
+        plane.addEventListener('click', () => window.location.href = p.link);
+        scene.appendChild(plane);
 
         // Titel erboven
         const title = document.createElement('a-text');
         title.setAttribute('value', p.title);
         title.setAttribute('align', 'center');
-        title.setAttribute('width', '2');
-        title.setAttribute('color', '#000');
-        title.setAttribute('position', `${x} ${y + 1.4} ${z}`);
+        title.setAttribute('width', '2.5');
+        title.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) + 1.2} ${p.position.split(' ')[2]}`);
         scene.appendChild(title);
 
         // Beschrijving eronder
@@ -82,25 +80,24 @@
         desc.setAttribute('value', p.description);
         desc.setAttribute('align', 'center');
         desc.setAttribute('width', '3');
-        desc.setAttribute('color', '#333');
-        desc.setAttribute('wrapCount', '40');
-        desc.setAttribute('position', `${x} ${y - 1.2} ${z}`);
+        desc.setAttribute('color', '#444');
+        desc.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) - 1.2} ${p.position.split(' ')[2]}`);
         scene.appendChild(desc);
       });
 
-      // Extra gif paneel
-      const gifPanel = document.createElement('a-image');
-      gifPanel.setAttribute('src', '#gif1');
+      // Extra gif panel
+      const gifPanel = document.createElement('a-plane');
+      gifPanel.setAttribute('material', 'src: #gif1; shader: flat; transparent: true');
       gifPanel.setAttribute('width', '2.5');
-      gifPanel.setAttribute('position', '7 2 -4');
+      gifPanel.setAttribute('height', '1.5');
+      gifPanel.setAttribute('position', '6.5 2 -4');
       scene.appendChild(gifPanel);
 
       const gifTitle = document.createElement('a-text');
       gifTitle.setAttribute('value', 'Shield/Health Pickup');
       gifTitle.setAttribute('align', 'center');
-      gifTitle.setAttribute('width', '4');
-      gifTitle.setAttribute('position', '7 3.3 -4');
-      gifTitle.setAttribute('color', '#000');
+      gifTitle.setAttribute('width', '3');
+      gifTitle.setAttribute('position', '6.5 3.2 -4');
       scene.appendChild(gifTitle);
     </script>
   </body>
