@@ -54,37 +54,52 @@
 
       const scene = document.querySelector('a-scene');
 
-      projects.forEach(p => {
-        // Projectvlak
-        const plane = document.createElement('a-plane');
-        plane.setAttribute('material', `src: ${p.img}; shader: flat; transparent: true`);
-        plane.setAttribute('width', '2.5');   // Breder dan hoog
-        plane.setAttribute('height', '1.5');  // Lager dan breed
-        plane.setAttribute('position', p.position);
-        plane.setAttribute('class', 'clickable');
-        plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
-        plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
-        plane.addEventListener('click', () => window.location.href = p.link);
-        scene.appendChild(plane);
+      projects.forEach((p, index) => {
+  const plane = document.createElement('a-plane');
 
-        // Titel erboven
-        const title = document.createElement('a-text');
-        title.setAttribute('value', p.title);
-        title.setAttribute('align', 'center');
-        title.setAttribute('width', '2.5');
-        title.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) + 1.2} ${p.position.split(' ')[2]}`);
-        scene.appendChild(title);
+  // Formaat per paneel instellen
+  let width, height;
+  if (index === 0 || index === 1) {
+    width = 2.5;
+    height = 1.5;
+  } else {
+    width = 1.5;
+    height = 2.5;
+  }
 
-        // Beschrijving eronder
-        const desc = document.createElement('a-text');
-        desc.setAttribute('value', p.description);
-        desc.setAttribute('align', 'center');
-        desc.setAttribute('width', '3');
-        desc.setAttribute('color', '#444');
-        desc.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) - 1.2} ${p.position.split(' ')[2]}`);
-        scene.appendChild(desc);
-      });
+  plane.setAttribute('material', `src: ${p.img}; shader: flat; transparent: true`);
+  plane.setAttribute('width', width);
+  plane.setAttribute('height', height);
+  plane.setAttribute('position', p.position);
+  plane.setAttribute('class', 'clickable');
+  plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
+  plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
+  plane.addEventListener('click', () => window.location.href = p.link);
+  scene.appendChild(plane);
 
+  // Titel erboven
+  const title = document.createElement('a-text');
+  title.setAttribute('value', p.title);
+  title.setAttribute('align', 'center');
+  title.setAttribute('width', '3');
+  title.setAttribute(
+    'position',
+    `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) + height / 1.2} ${p.position.split(' ')[2]}`
+  );
+  scene.appendChild(title);
+
+  // Beschrijving eronder
+  const desc = document.createElement('a-text');
+  desc.setAttribute('value', p.description);
+  desc.setAttribute('align', 'center');
+  desc.setAttribute('width', '3.5');
+  desc.setAttribute('color', '#444');
+  desc.setAttribute(
+    'position',
+    `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) - height / 1.2} ${p.position.split(' ')[2]}`
+  );
+  scene.appendChild(desc);
+});
       // Extra gif panel
       const gifPanel = document.createElement('a-plane');
       gifPanel.setAttribute('material', 'src: #gif1; shader: flat; transparent: true');
