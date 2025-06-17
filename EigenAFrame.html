@@ -5,6 +5,7 @@
     <title>Project Gallerij</title>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js"></script>
   </head>
   <body>
     <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
@@ -79,28 +80,26 @@
   scene.appendChild(plane);
 
   // Titel erboven
-  const title = document.createElement('a-text');
-  title.setAttribute('value', p.title);
-  title.setAttribute('align', 'center');
-  title.setAttribute('width', '3');
-  title.setAttribute('color', 'black');
-  title.setAttribute(
-    'position',
-    `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) + height / 1.2} ${p.position.split(' ')[2]}`
-  );
-  scene.appendChild(title);
+const title = document.createElement('a-troika-text');
+title.setAttribute('value', p.title);
+title.setAttribute('align', 'center');
+title.setAttribute('fontSize', '0.4');
+title.setAttribute('color', 'black');
+title.setAttribute('maxWidth', '2.5');
+title.setAttribute('anchor', 'center');
+title.setAttribute('position', `${x} ${y + hoogte/1.2} ${z}`);
+scene.appendChild(title);
 
-  // Beschrijving eronder
-  const desc = document.createElement('a-text');
-  desc.setAttribute('value', p.description);
-  desc.setAttribute('align', 'center');
-  desc.setAttribute('width', '3.5');
-  desc.setAttribute('color', 'black');
-  desc.setAttribute(
-    'position',
-    `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) - height / 1.2} ${p.position.split(' ')[2]}`
-  );
-  scene.appendChild(desc);
+// Beschrijving eronder
+const desc = document.createElement('a-troika-text');
+desc.setAttribute('value', p.description);
+desc.setAttribute('align', 'center');
+desc.setAttribute('fontSize', '0.25');
+desc.setAttribute('color', 'black');
+desc.setAttribute('maxWidth', '3');
+desc.setAttribute('anchor', 'center');
+desc.setAttribute('position', `${x} ${y - hoogte/1.2} ${z}`);
+scene.appendChild(desc);
 });
 
       // Extra gif panel
