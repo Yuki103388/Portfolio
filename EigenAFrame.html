@@ -5,7 +5,6 @@
     <title>Project Gallerij</title>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js"></script>
   </head>
   <body>
     <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
@@ -14,15 +13,15 @@
         <img id="project1" src="assets/img/TwinStickLogo.png">
         <img id="project2" src="assets/img/CastleOfMischief.png">
         <img id="project3" src="assets/img/GhostAR.jpg">
-        <img id="gif1" src="assets/img/armor pick up.gif" />
       </a-assets>
 
       <!-- Camera en cursor -->
       <a-entity id="cameraRig" position="0 1.6 0" movement-controls>
-        <a-entity camera look-controls wasd-controls>
-          <a-cursor></a-cursor>
-        </a-entity>
-      </a-entity>
+  <a-entity camera look-controls wasd-controls>
+    <a-cursor></a-cursor>
+  </a-entity>
+</a-entity>
+
 
       <!-- Achtergrond -->
       <a-sky color="#ECECEC"></a-sky>
@@ -35,12 +34,12 @@
           link: 'TwinStick.html',
           title: 'Twin Stick Shooter',
           description: 'Twin Stick Shooter is een spannend spel waar je vijanden moet uitschakelen met twee input sticks.',
-          position: '-3.5 1.5 -4'
+          position: '-2 1.5 -4'
         },
         {
           img: '#project2',
           link: 'CastleOfMischief.html',
-          title: 'Castle of Mischief',
+          title: 'Rogue-like Dungeon',
           description: 'Rogue-like Dungeon is een uitdagend spel waar je door een kasteel vol vijanden en moet survivelen per ronde.',
           position: '0 1.5 -4'
         },
@@ -49,73 +48,42 @@
           link: 'VR.html',
           title: 'Ghost AR',
           description: 'Arcade game met een VR bril, waar je door de wereld loopt en spoken moet uitschakelen.',
-          position: '3.5 1.5 -4'
+          position: '2 1.5 -4'
         }
       ];
 
       const scene = document.querySelector('a-scene');
 
-     projects.forEach((p, index) => {
-  const plane = document.createElement('a-plane');
+      projects.forEach(p => {
+        // Project vlak
+        const plane = document.createElement('a-plane');
+        plane.setAttribute('material', src: ${p.img});
+        plane.setAttribute('width', '1.5');
+        plane.setAttribute('height', '2.5');
+        plane.setAttribute('position', p.position);
+        plane.setAttribute('class', 'clickable');
+        plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
+        plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
+        plane.addEventListener('click', () => window.location.href = p.link);
+        scene.appendChild(plane);
 
-  // Formaat per paneel instellen
-  let width, height;
-  if (index === 0 || index === 1) {
-    width = 2.5;
-    height = 1.5;
-  } else {
-    width = 1.5;
-    height = 2.5;
-  }
+        // Titel erboven
+        const title = document.createElement('a-text');
+        title.setAttribute('value', p.title);
+        title.setAttribute('align', 'center');
+        title.setAttribute('width', '2');
+        title.setAttribute('position', ${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) + 1.6} ${p.position.split(' ')[2]});
+        scene.appendChild(title);
 
-  // Project paneel
-  plane.setAttribute('material', `src: ${p.img}; shader: flat; transparent: true; side: double`);
-  plane.setAttribute('width', width);
-  plane.setAttribute('height', height);
-  plane.setAttribute('position', p.position);
-  plane.setAttribute('class', 'clickable');
-  plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
-  plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
-  plane.addEventListener('click', () => window.location.href = p.link);
-  scene.appendChild(plane);
-
-  // Titel erboven
-const title = document.createElement('a-troika-text');
-title.setAttribute('value', p.title);
-title.setAttribute('align', 'center');
-title.setAttribute('fontSize', '0.4');
-title.setAttribute('color', 'black');
-title.setAttribute('maxWidth', '2.5');
-title.setAttribute('anchor', 'center');
-title.setAttribute('position', `${x} ${y + hoogte/1.2} ${z}`);
-scene.appendChild(title);
-
-// Beschrijving eronder
-const desc = document.createElement('a-troika-text');
-desc.setAttribute('value', p.description);
-desc.setAttribute('align', 'center');
-desc.setAttribute('fontSize', '0.25');
-desc.setAttribute('color', 'black');
-desc.setAttribute('maxWidth', '3');
-desc.setAttribute('anchor', 'center');
-desc.setAttribute('position', `${x} ${y - hoogte/1.2} ${z}`);
-scene.appendChild(desc);
-});
-
-      // Extra gif panel
-      const gifPanel = document.createElement('a-plane');
-      gifPanel.setAttribute('material', 'src: #gif1; shader: flat; transparent: true');
-      gifPanel.setAttribute('width', '2.5');
-      gifPanel.setAttribute('height', '1.5');
-      gifPanel.setAttribute('position', '6.5 2 -4');
-      scene.appendChild(gifPanel);
-
-      const gifTitle = document.createElement('a-text');
-      gifTitle.setAttribute('value', 'Shield/Health Pickup');
-      gifTitle.setAttribute('align', 'center');
-      gifTitle.setAttribute('width', '3');
-      gifTitle.setAttribute('position', '6.5 3.2 -4');
-      scene.appendChild(gifTitle);
+        // Beschrijving eronder
+        const desc = document.createElement('a-text');
+        desc.setAttribute('value', p.description);
+        desc.setAttribute('align', 'center');
+        desc.setAttribute('width', '2');
+        desc.setAttribute('color', '#444');
+        desc.setAttribute('position', ${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) - 1.6} ${p.position.split(' ')[2]});
+        scene.appendChild(desc);
+      });
     </script>
   </body>
 </html>
