@@ -58,82 +58,63 @@
       const scene = document.querySelector('a-scene');
 
      projects.forEach((p, index) => {
-  const plane = document.createElement('a-plane');
+    const plane = document.createElement('a-plane');
 
-  // Formaat per paneel instellen
-  let width, height;
-  if (index === 0 || index === 1) {
-    width = 2.5;
-    height = 1.5;
-  } else {
-    width = 1.5;
-    height = 2.5;
-  }
+    let width, height;
+    if (index === 0 || index === 1) {
+      width = 2.5;
+      height = 1.5;
+    } else {
+      width = 1.5;
+      height = 2.5;
+    }
 
-  plane.setAttribute('material', `src: ${p.img}; shader: flat; transparent: true; side: double`);
-  plane.setAttribute('width', width);
-  plane.setAttribute('height', height);
-  plane.setAttribute('position', p.position);
-  plane.setAttribute('class', 'clickable');
-  plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
-  plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
-  plane.addEventListener('click', () => window.location.href = p.link);
-  scene.appendChild(plane);
+    // Paneel zelf
+    plane.setAttribute('material', `src: ${p.img}; shader: flat; transparent: true`);
+    plane.setAttribute('width', width);
+    plane.setAttribute('height', height);
+    plane.setAttribute('position', p.position);
+    plane.setAttribute('class', 'clickable');
+    plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
+    plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
+    plane.addEventListener('click', () => window.location.href = p.link);
+    scene.appendChild(plane);
 
-  // Titel erboven
-const title = document.createElement('a-troika-text');
-title.setAttribute('value', p.title);
-title.setAttribute('align', 'center');
-title.setAttribute('fontSize', '0.35');
-title.setAttribute('color', 'black');
-title.setAttribute('maxWidth', '3');
-title.setAttribute('anchor', 'center');
-title.setAttribute(
-  'position',
-  `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) + height / 1.2} ${p.position.split(' ')[2]}`
-);
-scene.appendChild(title);
+    // Titel voorzijde
+    const title = document.createElement('a-text');
+    title.setAttribute('value', p.title);
+    title.setAttribute('align', 'center');
+    title.setAttribute('width', '3');
+    title.setAttribute('color', 'black');
 
-// Beschrijving eronder
-const desc = document.createElement('a-troika-text');
-desc.setAttribute('value', p.description);
-desc.setAttribute('align', 'center');
-desc.setAttribute('fontSize', '0.25');
-desc.setAttribute('color', 'black');
-desc.setAttribute('maxWidth', '3.5');
-desc.setAttribute('anchor', 'center');
-desc.setAttribute(
-  'position',
-  `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) - height / 1.2} ${p.position.split(' ')[2]}`
-);
-scene.appendChild(desc);
+    const x = parseFloat(p.position.split(' ')[0]);
+    const y = parseFloat(p.position.split(' ')[1]);
+    const z = parseFloat(p.position.split(' ')[2]);
 
-// Achterkant van titel
-const titleBack = title.cloneNode();
-titleBack.setAttribute('rotation', '0 180 0');
+    title.setAttribute('position', `${x} ${y + height / 1.2} ${z}`);
+    scene.appendChild(title);
 
-// Positie van achterkant-tekst iets naar achteren
-const titlePos = title.getAttribute('position');
-titleBack.setAttribute('position', {
-  x: titlePos.x,
-  y: titlePos.y,
-  z: titlePos.z - 0.01 // een klein stukje naar achteren
-});
-scene.appendChild(titleBack);
+    // Beschrijving voorzijde
+    const desc = document.createElement('a-text');
+    desc.setAttribute('value', p.description);
+    desc.setAttribute('align', 'center');
+    desc.setAttribute('width', '3.5');
+    desc.setAttribute('color', 'black');
+    desc.setAttribute('position', `${x} ${y - height / 1.2} ${z}`);
+    scene.appendChild(desc);
 
-// Achterkant van beschrijving
-const descBack = desc.cloneNode();
-descBack.setAttribute('rotation', '0 180 0');
+    // Achterkant titel
+    const titleBack = title.cloneNode();
+    titleBack.setAttribute('rotation', '0 180 0');
+    titleBack.setAttribute('position', `${x} ${y + height / 1.2} ${z - 0.01}`);
+    scene.appendChild(titleBack);
 
-// Positie van achterkant-beschrijving ook iets naar achteren
-const descPos = desc.getAttribute('position');
-descBack.setAttribute('position', {
-  x: descPos.x,
-  y: descPos.y,
-  z: descPos.z - 0.01
-});
-scene.appendChild(descBack);
-});
+    // Achterkant beschrijving
+    const descBack = desc.cloneNode();
+    descBack.setAttribute('rotation', '0 180 0');
+    descBack.setAttribute('position', `${x} ${y - height / 1.2} ${z - 0.01}`);
+    scene.appendChild(descBack);
+  });
     </script>
   </body>
 </html>
