@@ -5,6 +5,8 @@
     <title>Project Gallerij</title>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-troika-text/dist/aframe-troika-text.min.js"></script>
+
   </head>
   <body>
     <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
@@ -17,14 +19,14 @@
 
       <!-- Camera en cursor -->
       <a-entity id="cameraRig" position="0 1.6 0" movement-controls>
-        <a-entity camera look-controls wasd-controls>
-          <a-cursor></a-cursor>
-        </a-entity>
-      </a-entity>
-      
+  <a-entity camera look-controls wasd-controls>
+    <a-cursor></a-cursor>
+  </a-entity>
+</a-entity>
+
 
       <!-- Achtergrond -->
-      <a-sky color="#ECECEC"></a-sky>
+      <a-sky color="#3399ff"></a-sky>
     </a-scene>
 
     <script>
@@ -34,7 +36,7 @@
           link: 'TwinStick.html',
           title: 'Twin Stick Shooter',
           description: 'Twin Stick Shooter is een spannend spel waar je vijanden moet uitschakelen met twee input sticks.',
-          position: '-2 1.5 -4'
+          position: '-3.5 1.5 -4'
         },
         {
           img: '#project2',
@@ -48,42 +50,71 @@
           link: 'VR.html',
           title: 'Ghost AR',
           description: 'Arcade game met een VR bril, waar je door de wereld loopt en spoken moet uitschakelen.',
-          position: '2 1.5 -4'
+          position: '3.5 1.5 -4'
         }
       ];
 
+
       const scene = document.querySelector('a-scene');
 
-      projects.forEach(p => {
-        // Project vlak
-        const plane = document.createElement('a-plane');
-        plane.setAttribute('material', `src: ${p.img}`);
-        plane.setAttribute('width', '1.5');
-        plane.setAttribute('height', '2.5');
-        plane.setAttribute('position', p.position);
-        plane.setAttribute('class', 'clickable');
-        plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
-        plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
-        plane.addEventListener('click', () => window.location.href = p.link);
-        scene.appendChild(plane);
+     projects.forEach((p, index) => {
+    const plane = document.createElement('a-plane');
 
-        // Titel erboven
-        const title = document.createElement('a-text');
-        title.setAttribute('value', p.title);
-        title.setAttribute('align', 'center');
-        title.setAttribute('width', '2');
-        title.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) + 1.6} ${p.position.split(' ')[2]}`);
-        scene.appendChild(title);
+    let width, height;
+    if (index === 0 || index === 1) {
+      width = 2.5;
+      height = 1.5;
+    } else {
+      width = 1.5;
+      height = 2.5;
+    }
 
-        // Beschrijving eronder
-        const desc = document.createElement('a-text');
-        desc.setAttribute('value', p.description);
-        desc.setAttribute('align', 'center');
-        desc.setAttribute('width', '2');
-        desc.setAttribute('color', '#444');
-        desc.setAttribute('position', `${p.position.split(' ')[0]} ${parseFloat(p.position.split(' ')[1]) - 1.6} ${p.position.split(' ')[2]}`);
-        scene.appendChild(desc);
-      });
+    // Paneel zelf
+    plane.setAttribute('material', `src: ${p.img}; shader: flat; transparent: true; side: double`);
+    plane.setAttribute('width', width);
+    plane.setAttribute('height', height);
+    plane.setAttribute('position', p.position);
+    plane.setAttribute('class', 'clickable');
+    plane.setAttribute('event-set__enter', '_event: mouseenter; scale: 1.1 1.1 1');
+    plane.setAttribute('event-set__leave', '_event: mouseleave; scale: 1 1 1');
+    plane.addEventListener('click', () => window.location.href = p.link);
+    scene.appendChild(plane);
+
+    // Titel voorzijde
+    const title = document.createElement('a-text');
+    title.setAttribute('value', p.title);
+    title.setAttribute('align', 'center');
+    title.setAttribute('width', '3');
+    title.setAttribute('color', 'black');
+
+    const x = parseFloat(p.position.split(' ')[0]);
+    const y = parseFloat(p.position.split(' ')[1]);
+    const z = parseFloat(p.position.split(' ')[2]);
+
+    title.setAttribute('position', `${x} ${y + height / 1.2} ${z}`);
+    scene.appendChild(title);
+
+    // Beschrijving voorzijde
+    const desc = document.createElement('a-text');
+    desc.setAttribute('value', p.description);
+    desc.setAttribute('align', 'center');
+    desc.setAttribute('width', '3.5');
+    desc.setAttribute('color', 'black');
+    desc.setAttribute('position', `${x} ${y - height / 1.2} ${z}`);
+    scene.appendChild(desc);
+
+    // Achterkant titel
+    const titleBack = title.cloneNode();
+    titleBack.setAttribute('rotation', '0 180 0');
+    titleBack.setAttribute('position', `${x} ${y + height / 1.2} ${z - 0.01}`);
+    scene.appendChild(titleBack);
+
+    // Achterkant beschrijving
+    const descBack = desc.cloneNode();
+    descBack.setAttribute('rotation', '0 180 0');
+    descBack.setAttribute('position', `${x} ${y - height / 1.2} ${z - 0.01}`);
+    scene.appendChild(descBack);
+  });
     </script>
   </body>
 </html>
