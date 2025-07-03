@@ -10,6 +10,7 @@
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -111,71 +112,34 @@
                 </div>
             </div>
         </section>
-        <section class="projects-section bg-light" id="projects 2">
-            <div class="container px-lg-4 px-lg-5">
-                <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/Reloadgefixt.gif" alt="Reload gefixt gif " /></div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Reload gefixt</h4>
-                                    <p class="mb-0 text-white-50">Hier moet je eerst reloaden en dan pas schieten</p>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Code uitleg van hierboven</h4>
-                                    <pre class="mb-0 text-white-50" style="text-align: left; background-color: #333; padding: 5px; border-radius: 2px;">
-                                        <code>void ReloadWeapon()
-                                    {
-                                        if (Input.GetKeyDown(KeyCode.R) && !isReloading && !isShooting)
-                                        {
-                                            if (playerGun != null && playerGun.hasPickedUpWeapon)
-                                            {
-                                                if (playerGun.currentAmmo > 0 && playerGun.currentClip < playerGun.maxClipSize)
-                                                {
-                                                    isReloading = true;
-                                                    Debug.Log("ReloadWeapon called");
-                                                    playerGun.Reload();
-                                                    isShooting = false;
-                                                }
-                                                else if (playerGun.currentAmmo == 0)
-                                                {
-                                                    StartCoroutine(displayer.DisplayError("No ammo available for reload."));
-                                                }
-                                                else if (playerGun.currentClip == playerGun.maxClipSize)
-                                                {
-                                                    StartCoroutine(displayer.DisplayError("Clip is already full."));
-                                                }
-                                            }
-                                        }
-                                        else if (isReloading && !playerGun.IsReloading())
-                                        {
-                                            isReloading = false;
-                                            isShooting = false;
-                                            playerGun.EnableReloadImage(false); // Schakel de reloadImage uit als het herladen is voltooid
-                                        }
-                                    
-                                        if (isReloading)
-                                        {
-                                            playerGun.EnableReloadImage(true); 
-                                        }
-                                        else
-                                        {
-                                            playerGun.EnableReloadImage(false); 
-                                        }
-                                    }</code></pre>
-                                </div>
+       <section class="projects-section bg-light" id="projects-2">
+    <div class="container px-lg-4 px-lg-5">
+        <div class="row gx-0 justify-content-center">
+            <!-- Afbeelding -->
+            <div class="col-lg-6">
+                <img class="img-fluid" src="assets/img/Reloadgefixt.gif" alt="Reload gefixt gif" />
+            </div>
+            <!-- Tekst + GitHub -->
+            <div class="col-lg-6 order-lg-first">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-right">
+                            <h4 class="text-white">Reload gefixt</h4>
+                            <p class="mb-0 text-white-50">Hier moet je eerst reloaden en dan pas schieten</p>
+
+                            <h5 class="text-white mt-4">Code voor reloaden</h5>
+                            <div class="mt-2">
+                                <a href="https://gitlab.glu.nl/220447/twinstick/-/blob/main/Assets/Scripts/PlayerMovement.cs" target="_blank" class="text-white-50 text-decoration-none">
+                                    <i class="fab fa-github fa-lg me-2"></i>Bekijk op GitHub
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </div> 
+        </div> 
+    </div> 
+</section>
         <section class="projects-section bg-light" id="chest">
             <div class="container px-4 px-lg-5">
                 <!-- Featured Project Row-->
