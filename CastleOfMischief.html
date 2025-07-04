@@ -119,117 +119,35 @@
                 </div>
             </div>
         </section>
-        <section class="projects-section bg-light" id="projects 2">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/Enemy Archer.gif" alt="Reload gefixt gif " /></div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Enemy Archer</h4>
-                                    <p class="mb-0 text-white-50">Enemy Archer schieten op je en pijl gaat richting jou</p>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <div class="accordion" id="codeAccordion">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header" id="headingOne">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="background-color: #0680fa; color: #ffffff;"></button>
-                                                    Klik hier om de code te bekijken
-                                                </button>
-                                            </h2>
-                                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#codeAccordion">
-                                                <div class="accordion-body">
-                                                    <pre class="mb-0 text-blue-50">
-                                                        <code>
-                                                using UnityEngine;
-                                                using UnityEngine.AI;
+       <section class="projects-section bg-light" id="projects-2">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-0 justify-content-center">
+            <!-- Linkerkant: gif afbeelding -->
+            <div class="col-lg-6">
+                <img class="img-fluid" src="assets/img/Enemy Archer.gif" alt="Reload gefixt gif" />
+            </div>
 
-                                                public class ArcherController : MonoBehaviour
-                                                {
-                                                    private NavMeshAgent agent;
-                                                    private float lastAttackTime;
-                                                    private Transform player;
-                                                    private Animator animator;
-                                                    private AudioSource arrowSound;
+            <!-- Rechterkant: tekst en GitLab-link -->
+            <div class="col-lg-6 order-lg-first">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-right">
+                            <h4 class="text-white">Enemy Archer</h4>
+                            <p class="mb-3 text-white-50">Enemy Archers schieten pijlen op je en richten zich op de speler.</p>
 
-                                                    public StatsData enemyStats;
-                                                    public float attackDelay = 4f;
-                                                    public float attackRange = 30f;
-                                                    public GameObject arrowPrefab;
-
-                                                    void Start()
-                                                    {
-                                                        arrowSound = GetComponent<AudioSource>();
-                                                        agent = GetComponent<NavMeshAgent>();
-                                                        animator = GetComponent<Animator>();
-                                                        lastAttackTime = -attackDelay;
-
-                                                        player = GameObject.FindWithTag("Player")?.transform;
-                                                        if (player == null) Debug.LogWarning("Player not found!");
-                                                    }
-
-                                                    void Update()
-                                                    {
-                                                        if (player == null) return;
-
-                                                        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-                                                        if (distanceToPlayer <= attackRange && Time.time - lastAttackTime >= attackDelay)
-                                                        {
-                                                            lastAttackTime = Time.time;
-                                                            ShootArrow();
-                                                        }
-                                                        else
-                                                        {
-                                                            agent.destination = player.position;
-                                                        }
-
-                                                        animator.SetBool("Walk", agent.velocity.magnitude > 0.01f);
-                                                    }
-
-                                                    public void TakeDamage(int amount)
-                                                    {
-                                                        enemyStats.currentHealth -= amount;
-                                                        if (enemyStats.currentHealth <= 0) Die();
-                                                    }
-
-                                                    private void ShootArrow()
-                                                    {
-                                                        if (arrowPrefab == null) return;
-
-                                                        animator.SetTrigger("Attack");
-                                                        Invoke("SpawnArrow", 0.5f);
-                                                    }
-
-                                                    private void SpawnArrow()
-                                                    {
-                                                        Vector3 spawnPos = transform.position + Vector3.up * 1.5f + transform.forward;
-                                                        GameObject arrow = Instantiate(arrowPrefab, spawnPos, Quaternion.identity);
-                                                        arrow.GetComponent<Arrow>()?.SetDirection((player.position - spawnPos).normalized);
-                                                    }
-
-                                                    private void Die()
-                                                    {
-                                                        Destroy(gameObject);
-                                                    }
-                                                }
-                                                        </code>
-                                                    </pre>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
+                            <!-- GitLab link -->
+                            <a href="https://gitlab.glu.nl/530806/castle-mischief/-/blob/main/Assets/Scripts/ArcherController.cs?ref_type=heads"
+                               target="_blank"
+                               class="text-white-50 text-decoration-none">
+                                <i class="fab fa-gitlab fa-lg me-2"></i>Bekijk volledige code op GitLab
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
         <section class="projects-section bg-light" id="projects 3">
             <div class="container px-4 px-lg-5">
                 <!-- Featured Project Row-->
