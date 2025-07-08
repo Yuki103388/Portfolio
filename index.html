@@ -100,14 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
     skillSection.addEventListener("mouseleave", () => {
         skillSection.style.boxShadow = "none";
     });
-
-    // Randomly change text color of skills every 2 seconds
-    setInterval(() => {
-        const skillItems = skillSection.querySelectorAll("ul li");
-        skillItems.forEach((item) => {
-            item.style.color = colors[Math.floor(Math.random() * colors.length)];
-        });
-    }, 2000);
             
 
 // Parallax Effect for Image
@@ -131,6 +123,16 @@ if (parallaxContainer) {
     });
 }
 });
+
+  window.addEventListener('scroll', function () {
+    const navbar = document.getElementById('mainNav');
+    if (window.scrollY > 100) {
+      navbar.classList.add('navbar-shrink');
+    } else {
+      navbar.classList.remove('navbar-shrink');
+    }
+  });
+
 </script>
 
 <!-- About -->
@@ -151,20 +153,21 @@ if (parallaxContainer) {
                     <!-- Engine Skills -->
                     <h4 class="text-white mt-3">Engine Skills</h4>
                     <ul class="text-white">
-                        <li>Unity </li>
-                        <li>Unreal </li>
-                        <li>C# </li>
-                        <li>Blueprint Unreal </li>
+                        <li class="skill-item">Unity</li>
+                        <li class="skill-item">Unreal</li>
+                        <li class="skill-item">C#</li>
+                        <li class="skill-item">Blueprint Unreal</li>
                     </ul>
+
                     
                     <!-- Other Skills -->
                     <h4 class="text-white mt-3">Andere Skills</h4>
                     <ul class="text-white">
-                        <li>Communicatie - </li>
-                        <li>Scrum - </li>
-                        <li>Photoshop - </li>
-                        <li>Illustrator - </li>
-                        <li>InDesign - </li>
+                        <li class="skill-item"> Communicatie  </li>
+                        <li class="skill-item"> Scrum  </li>
+                        <li class="skill-item"> Photoshop  </li>
+                        <li class="skill-item"> Illustrator  </li>
+                        <li class="skill-item"> InDesign  </li>
                     </ul>
                 </div>
             </div>
@@ -268,7 +271,7 @@ if (parallaxContainer) {
                 </div>
                 <div class="social d-flex justify-content-center">
                     <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                    <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                    <a class="mx-2" href="https://www.linkedin.com/in/yuk-zheng-10550a183/"><i class="fab fa-linkedin"></i></a>
                     <a class="mx-2" href="https://github.com/Yuki103388"><i class="fab fa-github"></i></a>
                 </div>
             </div>
@@ -284,5 +287,6 @@ if (parallaxContainer) {
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
     </body>
 </html>
