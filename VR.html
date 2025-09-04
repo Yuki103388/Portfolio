@@ -18,6 +18,10 @@
      <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+
+            <!-- Naam linksboven -->
+        <a class="navbar-brand brand-name" href="#page-top">Yuk Zheng</a>
+        
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="index.html">Home</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
@@ -143,14 +147,16 @@
                               <div class="project-text w-100 my-auto text-center text-lg-right">
                                  <h4 class="text-white">Code uitleg van hierboven</h4>
 
-                                 <button class="btn btn-info mb-2" data-bs-toggle="collapse" data-bs-target="#codeBlock">
-                                 Toon/verberg code
-                                 </button>
+                                 <!-- Knop om code te tonen/verbergen -->
+                              <button class="btn btn-info mb-2" data-bs-toggle="collapse" data-bs-target="#codeBlock">
+                              Toon/verberg code
+                              </button>
 
-                                   <div id="codeBlock" class="collapse">
-                                   <pre class="mb-0 text-white-50"><code>
-                                   void ReloadWeapon()
-                               {
+                            <!-- Code block met Prism.js -->
+                            <div id="codeBlock" class="collapse">
+                            <pre><code class="language-csharp">
+                                void ReloadWeapon()
+                                {
                                     if (Input.GetKeyDown(KeyCode.R) && !isReloading && !isShooting)
                                     {
                                         if (playerGun != null && playerGun.hasPickedUpWeapon)
@@ -176,19 +182,27 @@
                                     {
                                         isReloading = false;
                                         isShooting = false;
-                                        playerGun.EnableReloadImage(false); // Schakel de reloadImage uit als het herladen is voltooid
+                                        playerGun.EnableReloadImage(false);
                                     }
-                                
+
                                     if (isReloading)
                                     {
-                                        playerGun.EnableReloadImage(true); 
+                                        playerGun.EnableReloadImage(true);
                                     }
                                     else
                                     {
-                                        playerGun.EnableReloadImage(false); 
+                                        playerGun.EnableReloadImage(false);
                                     }
-                                }</code></pre>
-                                </div>
+                                }
+                                </code></pre>
+                            </div>
+
+<!-- Prism.js CSS in je <head> -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+
+<!-- Prism.js scripts vlak voor </body> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
                         </div>
                     </div>
                 </div>
@@ -212,7 +226,7 @@
                         <div class="card py-4 h-100">
                             <div class="card-body text-center">
                                 <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Phone</h4>
+                                <h4 class="text-uppercase m-0">Mobiel</h4>
                                 <hr class="my-4 mx-auto" />
                                 <div class="small text-black-50">+31 6 85150223</div>
                             </div>

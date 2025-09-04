@@ -3854,6 +3854,15 @@ textarea.form-control-lg {
   color: var(--bs-navbar-brand-hover-color);
 }
 
+.brand-name {
+    background: linear-gradient(45deg, #000000, #705400, #FFAA00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    font-size: 1.5rem; /* iets groter voor accent */
+
+}
+
 .navbar-nav {
   --bs-nav-link-padding-x: 0;
   --bs-nav-link-padding-y: 0.5rem;
