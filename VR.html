@@ -91,6 +91,12 @@
                             <img class="img-fluid mb-3" src="assets/img/Unity-Logo.png" alt="Unity Logo" />
                             <img class="img-fluid mb-3" src="assets/img/Meta-Logo.png" alt="Meta Logo" />
 
+                            <h3>Samenwerking</h3>
+                            <p class="text-black-50 mb-3">
+                                Ik heb dit project samen met 2 andere dev gedaan
+                                we hadden 4 weken ervoor om dit project te maken
+                            </p>
+
                             <h4>Ghost AR</h4>
                             <p class="text-black-50 mb-0">Ghost AR/VR project waarmee je in de echte wereld kon zien en spelen. 
                                 Het was vooral bedoeld om geesten te schieten, een beetje zoals een arcade game.
@@ -107,6 +113,9 @@
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">Power up FireRate</h4>
                                     <p class="mb-0 text-white-50">Hier naast zie wat de FireRate power up doet</p>
+                                     <a href="https://github.com/Yuki103388/AR-Ghost/blob/main/Assets/Script/Fire.cs" target="_blank" class="text-white-50 text-decoration-none">
+                                    <i class="fab fa-github fa-lg me-2"></i>Bekijk volledige code op GitHub
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +129,10 @@
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
                                     <h4 class="text-white">Power up Nuke</h4>
-                                    <p class="mb-0 text-white-50">Met de Nuke kan je alle enemy uitschakelen </p>
+                                    <p class="mb-0 text-white-50">Met de Nuke kan je alle ghost uitschakelen </p>
+                                     <a href="https://github.com/Yuki103388/AR-Ghost/blob/main/Assets/Script/Nuke.cs" target="_blank" class="text-white-50 text-decoration-none">
+                                    <i class="fab fa-github fa-lg me-2"></i>Bekijk volledige code op GitHub
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -154,6 +166,9 @@
         <div class="bg-black h-100 project p-3 rounded">
           <div class="project-text w-100 my-auto text-center text-lg-right">
             <h4 class="text-white">Code uitleg van hierboven</h4>
+             <a href="https://github.com/Yuki103388/AR-Ghost/blob/main/Assets/Script/Guns.cs" target="_blank" class="text-white-50 text-decoration-none">
+                                    <i class="fab fa-github fa-lg me-2"></i>Bekijk volledige code op GitHub
+            </a>
 
             <!-- Knop om code te tonen/verbergen -->
             <button
@@ -167,45 +182,41 @@
             <!-- Code block met Prism.js -->
             <div id="codeBlock" class="collapse">
               <pre><code class="language-csharp">
-void ReloadWeapon()
-{
-    if (Input.GetKeyDown(KeyCode.R) && !isReloading && !isShooting)
+
+// Called when the fire input action is triggered
+    public void OnFire(InputAction.CallbackContext context)
     {
-        if (playerGun != null && playerGun.hasPickedUpWeapon)
-        {
-            if (playerGun.currentAmmo > 0 && playerGun.currentClip < playerGun.maxClipSize)
-            {
-                isReloading = true;
-                Debug.Log("ReloadWeapon called");
-                playerGun.Reload();
-                isShooting = false;
-            }
-            else if (playerGun.currentAmmo == 0)
-            {
-                StartCoroutine(displayer.DisplayError("No ammo available for reload."));
-            }
-            else if (playerGun.currentClip == playerGun.maxClipSize)
-            {
-                StartCoroutine(displayer.DisplayError("Clip is already full."));
-            }
-        }
-    }
-    else if (isReloading && !playerGun.IsReloading())
-    {
-        isReloading = false;
-        isShooting = false;
-        playerGun.EnableReloadImage(false);
+        isFiring = context.phase == InputActionPhase.Performed;
     }
 
-    if (isReloading)
+    // Called when the grip input action is triggered
+    public void OnGrip(InputAction.CallbackContext context)
     {
-        playerGun.EnableReloadImage(true);
+        if (context.phase == InputActionPhase.Performed)
+        {
+            AlignToForward();
+        }
     }
-    else
+
+    void Update()
     {
-        playerGun.EnableReloadImage(false);
+        if (isFiring && Time.time >= nextFireTime)
+        {
+            Shoot();
+            nextFireTime = Time.time + fireRate;
+        }
     }
-}
+
+    void Shoot()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = firePoint.forward * bulletSpeed; 
+        }
+    }
               </code></pre>
             </div>
           </div>
