@@ -128,86 +128,111 @@
                 </div>
             </div>
         </section>
-        <section class="projects-section bg-light" id="projects 2">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/Schieten.gif" alt="Schieten" /></div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Schieten</h4>
-                                    <p class="mb-0 text-white-50">De schiet mechanic was met een bullet die uit de loop kom en de kogel heeft zelf een soort trace erbij zodat je ziet of je de target raakt</p>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="bg-black text-center h-100 project">
-                          <div class="d-flex h-100">
-                              <div class="project-text w-100 my-auto text-center text-lg-right">
-                                 <h4 class="text-white">Code uitleg van hierboven</h4>
+       <section class="projects-section bg-light" id="projects 2">
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-0 justify-content-center">
+      <div class="col-lg-6">
+        <img class="img-fluid" src="assets/img/Schieten.gif" alt="Schieten" />
+      </div>
+      <div class="col-lg-6 order-lg-first">
+        <div class="bg-black text-center h-100 project">
+          <div class="d-flex h-100">
+            <div class="project-text w-100 my-auto text-center text-lg-right">
+              <h4 class="text-white">Schieten</h4>
+              <p class="mb-0 text-white-50">
+                De schiet mechanic was met een bullet die uit de loop kom en de
+                kogel heeft zelf een soort trace erbij zodat je ziet of je de
+                target raakt
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                                 <!-- Knop om code te tonen/verbergen -->
-                              <button class="btn btn-info mb-2" data-bs-toggle="collapse" data-bs-target="#codeBlock">
-                              Toon/verberg code
-                              </button>
+      <!-- Tweede blok met code -->
+      <div class="col-lg-12">
+        <div class="bg-black h-100 project p-3 rounded">
+          <div class="project-text w-100 my-auto text-center text-lg-right">
+            <h4 class="text-white">Code uitleg van hierboven</h4>
 
-                            <!-- Code block met Prism.js -->
-                            <div id="codeBlock" class="collapse">
-                            <pre><code class="language-csharp">
-                                void ReloadWeapon()
-                                {
-                                    if (Input.GetKeyDown(KeyCode.R) && !isReloading && !isShooting)
-                                    {
-                                        if (playerGun != null && playerGun.hasPickedUpWeapon)
-                                        {
-                                            if (playerGun.currentAmmo > 0 && playerGun.currentClip < playerGun.maxClipSize)
-                                            {
-                                                isReloading = true;
-                                                Debug.Log("ReloadWeapon called");
-                                                playerGun.Reload();
-                                                isShooting = false;
-                                            }
-                                            else if (playerGun.currentAmmo == 0)
-                                            {
-                                                StartCoroutine(displayer.DisplayError("No ammo available for reload."));
-                                            }
-                                            else if (playerGun.currentClip == playerGun.maxClipSize)
-                                            {
-                                                StartCoroutine(displayer.DisplayError("Clip is already full."));
-                                            }
-                                        }
-                                    }
-                                    else if (isReloading && !playerGun.IsReloading())
-                                    {
-                                        isReloading = false;
-                                        isShooting = false;
-                                        playerGun.EnableReloadImage(false);
-                                    }
+            <!-- Knop om code te tonen/verbergen -->
+            <button
+              class="btn btn-info mb-2"
+              data-bs-toggle="collapse"
+              data-bs-target="#codeBlock"
+            >
+              Toon/verberg code
+            </button>
 
-                                    if (isReloading)
-                                    {
-                                        playerGun.EnableReloadImage(true);
-                                    }
-                                    else
-                                    {
-                                        playerGun.EnableReloadImage(false);
-                                    }
-                                }
-                                </code></pre>
-                            </div>
+            <!-- Code block met Prism.js -->
+            <div id="codeBlock" class="collapse">
+              <pre><code class="language-csharp">
+void ReloadWeapon()
+{
+    if (Input.GetKeyDown(KeyCode.R) && !isReloading && !isShooting)
+    {
+        if (playerGun != null && playerGun.hasPickedUpWeapon)
+        {
+            if (playerGun.currentAmmo > 0 && playerGun.currentClip < playerGun.maxClipSize)
+            {
+                isReloading = true;
+                Debug.Log("ReloadWeapon called");
+                playerGun.Reload();
+                isShooting = false;
+            }
+            else if (playerGun.currentAmmo == 0)
+            {
+                StartCoroutine(displayer.DisplayError("No ammo available for reload."));
+            }
+            else if (playerGun.currentClip == playerGun.maxClipSize)
+            {
+                StartCoroutine(displayer.DisplayError("Clip is already full."));
+            }
+        }
+    }
+    else if (isReloading && !playerGun.IsReloading())
+    {
+        isReloading = false;
+        isShooting = false;
+        playerGun.EnableReloadImage(false);
+    }
+
+    if (isReloading)
+    {
+        playerGun.EnableReloadImage(true);
+    }
+    else
+    {
+        playerGun.EnableReloadImage(false);
+    }
+}
+              </code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Prism.js CSS in je <head> -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+  rel="stylesheet"
+/>
 
 <!-- Prism.js scripts vlak voor </body> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
+<!-- Extra CSS fix -->
+<style>
+  #codeBlock pre,
+  #codeBlock code {
+    text-align: left !important;
+  }
+</style>
+
         <!-- Contact-->
         <section class="contact-section bg-black">
             <div class="container px-4 px-lg-5">
