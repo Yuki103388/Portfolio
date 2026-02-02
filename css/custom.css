@@ -11351,6 +11351,23 @@ body {
   transition: transform 0.1s ease-out;
 }
 
+/* Social icons boven profielfoto */
+.profile-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.profile-socials a {
+  color: #64a19d;           /* jouw accentkleur */
+  font-size: 1.8rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.profile-socials a:hover {
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
 
 
 
